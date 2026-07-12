@@ -1,0 +1,23 @@
+{
+	"schemaVersion": 1,
+	"id": "bbs2fig",
+	"version": "${version}",
+	"name": "BBS2Fig",
+	"description": "Figura rigs as controllable BBS scene forms.",
+	"authors": [
+		"larisa"
+	],
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"bbs-addon": [
+			"com.larisa.bbs2fig.Bbs2FigAddon"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.16.0",
+		"minecraft": "~1.21.1",
+		"bbs": "*",
+		"figura": "*"
+	}
+}
