@@ -41,16 +41,23 @@ public class FiguraFormRenderer extends FormRenderer<FiguraForm>
     {
         boolean diag = this.diagnostics < 3;
 
-        Avatar avatar = AvatarResolver.resolve(this.form);
         MinecraftClient mc = MinecraftClient.getInstance();
+
+        if (mc.player == null)
+        {
+            return;
+        }
+
+        Entity host = this.resolveHost(context, mc);
+        Avatar avatar = AvatarResolver.resolve(this.form, host);
 
         if (diag)
         {
             this.diagnostics++;
-            LOGGER.info("render3D: avatar={} loaded={} renderer={} player={}", avatar != null, avatar != null && avatar.loaded, avatar != null && avatar.renderer != null, mc.player != null);
+            LOGGER.info("render3D: avatar={} loaded={} renderer={} hostPlayer={}", avatar != null, avatar != null && avatar.loaded, avatar != null && avatar.renderer != null, host == mc.player);
         }
 
-        if (avatar == null || !avatar.loaded || avatar.renderer == null || mc.player == null)
+        if (avatar == null || !avatar.loaded || avatar.renderer == null)
         {
             return;
         }
@@ -62,7 +69,6 @@ public class FiguraFormRenderer extends FormRenderer<FiguraForm>
             return;
         }
 
-        Entity host = this.resolveHost(context, mc);
         float delta = context.getTransition();
 
         this.tickAvatar(avatar);
