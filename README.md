@@ -1,14 +1,24 @@
 # BBS2Fig
 
+> ⚠️ **UNFINISHED — PAUSED / ON HOLD.** This is an incomplete work-in-progress and is not being actively developed right now. It renders a Figura avatar inside a BBS scene, but Figura's own Lua scripts and animations do **not** come alive in the scene preview (see "Where it stands" below). Use at your own risk; expect rough edges and no support.
+
 A Fabric 1.21.1 addon that bridges [Figura](https://modrinth.com/mod/figura) and [BBS (CML Edition)](https://discord.gg/MAHVQBSce6), exposing Figura avatars (rigs) as native BBS scene forms. The goal is to let Figura rigs — including their Lua scripts and animations — be placed, moved, transformed and keyframed inside BBS scenes just like ordinary BBS rigs.
 
-## Status
+## Where it stands
 
-Early development.
+**Works:**
+- A `figura` form type is registered in BBS (`bbs-addon` entrypoint) and appears in the form palette (via an `ExtraFormSection` mixin).
+- The equipped Figura avatar renders inside a BBS scene through BBS's own vertex consumer provider, and can be positioned/transformed with the BBS form transform.
 
-- **Phase 1 (current):** register a `figura` form type in BBS via the `bbs-addon` entrypoint, with an avatar selector (local `figura/avatars/*` folder or the currently equipped avatar). Renderer is a stub.
-- **Phase 2:** render the selected Figura avatar in the scene through the BBS render pipeline, ticking its Lua runtime with an isolated stub host.
-- **Phase 3:** expose Figura model parts as BBS bones for attachment and per-bone control.
+**Blocked / not working:**
+- Figura's Lua scripts (e.g. eye tracking) and animations stay **frozen** in the scene preview. Root cause: Figura's behaviour is driven by a live entity's state (look direction, movement) and real tick time, but the BBS dashboard preview renders the form against a stub/frozen context rather than a live entity, so there is no live input to drive scripted behaviour. Binding the avatar to BBS's real `ActorEntity` only applies to in-world/exported playback, not the dashboard preview.
+
+**Possible directions (not implemented):**
+- **A.** Expose Figura model parts as BBS bones so parts can be moved/keyframed directly in BBS ("like a normal BBS rig").
+- **B.** Bridge scene state into Figura's Lua entity API (look direction from the BBS camera/target, position from the form transform, tick from the scene playhead) so scripts come alive — a large, uncertain R&D effort.
+- **C.** Accept BBS-transform-driven posing without live Figura scripts.
+
+No direction has been chosen; development is paused here.
 
 ## Requirements
 
