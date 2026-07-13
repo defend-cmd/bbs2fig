@@ -13,7 +13,6 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.RotationAxis;
 import org.figuramc.figura.avatar.Avatar;
 import org.figuramc.figura.math.matrix.FiguraMat4;
 import org.figuramc.figura.model.rendering.PartFilterScheme;
@@ -72,13 +71,11 @@ public class FiguraFormRenderer extends FormRenderer<FiguraForm>
         VertexConsumerProvider provider = FormUtilsClient.getProvider();
 
         matrices.push();
-        matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(180F));
         matrices.scale(-1F, -1F, 1F);
+        matrices.translate(0.0F, -1.501F, 0.0F);
 
         try
         {
-            avatar.updateMatrices(livingRenderer, matrices);
-
             FiguraMat4 mat = FiguraMat4.of().set(matrices.peek().getPositionMatrix());
 
             avatar.renderEvent(delta, mat);
