@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "com.larisa.bbs2fig.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"ExtraFormSectionMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
